@@ -1,0 +1,38 @@
+# Bytecode and cache (Python)
+__pycache__/
+*.pyc
+
+# Compiled Arduino or ESP32 builds
+*.hex
+*.elf
+*.bin
+
+# VSCode and JetBrains project settings
+.vscode/
+.idea/
+
+# System and OS junk files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+
+# Environment or secret files
+*.env
+secrets.txt
+wifi_credentials.txt
+api_keys.txt
+
+# Node.js / web dashboard
+node_modules/
+dist/
+build/
+
+# Temporary files
+*.bak
+*.tmp
+*.swp
+
+# Git keep placeholder
+**/.gitkeep
