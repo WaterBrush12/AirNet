@@ -1,27 +1,36 @@
 # AirNet
 
-Trying to solve air pollution problems with minimum resources
+Trying to solve air pollution problems with minimum resources.
+
 ---
+
 ## My Background
 
-As someone born in Tehran, the capital city of Iran, I've lived with the health and frustration
-of extreme air pollution. As of right now, 4th of June 2025, Tehran is the 4th most air polluted
-city in the entire world! I remember times where school, and sometimes even offices would be closed
-just because of the sheer amount of the air pollution that existed.
----
-## My goal
+As someone born in Tehran, the capital city of Iran, I've lived with the health and frustration  
+of extreme air pollution. As of June 4, 2025, Tehran is the **4th most air-polluted**  
+city in the entire world. I remember times when schools — and even offices — would close  
+because of the sheer amount of pollution in the air.
 
-Built a low-cost, scalable, and open-source air quality monitoring and purifying system.
 ---
+
+## My Goal
+
+Build a low-cost, scalable, and open-source air quality monitoring and purifying system.
+
+---
+
 ## What's Included in This Repository
 
-- Hardware blueprints and schematics
-- The microcontroller code for the sensors, data logging and the air purifying system.
-- Cost breakdown and list of material providers
-- Documentation on my stidues about air pollution
-- Documentation on the building process (log)
-- Real photos of prototypes and field versions.
----
-## Current status
+- Hardware blueprints and schematics  
+- Microcontroller code for the sensors, data logging, and purification system  
+- Cost breakdown and list of material providers  
+- Documentation on my research into air pollution  
+- A log documenting the full building process  
+- Real photos of prototypes and deployed units
 
-Planning and researching stage
+---
+
+## Current Status
+
+Planning and research phase.
+
