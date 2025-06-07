@@ -27,7 +27,9 @@ Build a low-cost, scalable, and open-source air quality monitoring and purifying
 
 ## What Exactly is Air Pollution?
 
-Click [here](https://google.com) to see my research on air pollution.
+Air pollution is the presence of harmful substances in the atmosphere -- such as particulate matter, gases, or chemichals -- that degrade air quality and pose risks to human health. ecosystems, and the climate.
+
+Click [here](research.md) to see my research on air pollution.
 
 ## Current Status
 
