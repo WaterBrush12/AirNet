@@ -27,13 +27,7 @@ Build a low-cost, scalable, and open-source air quality monitoring and purifying
 
 ## What Exactly is Air Pollution?
 
-Air pollution is the presence of harmful substances in the air, such as gases,
-particles, and biological molecules, that can harm human health and the environment.
-It is caused by sources like vehicle emissions, industrial processes, burning fossil fuels,
-and natural events like wildfires. These pollutants can lead to respiratory diseases,
-environmental damage, and climate change. Controlling air pollution is essential for public 
-health and ecological balance.  
-For more information click [here](https://google.com) to see my research on air pollution.
+Click [here](https://google.com) to see my research on air pollution.
 
 ## Current Status
 
