@@ -29,7 +29,7 @@ Build a low-cost, scalable, and open-source air quality monitoring and purifying
 
 Air pollution is the presence of harmful substances in the atmosphere -- such as particulate matter, gases, or chemichals -- that degrade air quality and pose risks to human health. ecosystems, and the climate.
 
-Click [here](research.md) to see my research on air pollution.
+Click [here](research.md#airnet-research-paper) to see my research on air pollution.
 
 ## Current Status
 
