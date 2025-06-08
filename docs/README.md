@@ -13,13 +13,13 @@ because of the sheer amount of pollution in the air.
 
 ## My Goal
 
-Build a low-cost, scalable, and open-source air quality monitoring and purifying system.
+Build a low-cost, scalable, and open-source air quality monitoring system.
 
 
 ## What's Included in This Repository
 
 - Hardware blueprints and schematics  
-- Microcontroller code for the sensors, data logging, and purification system  
+- Microcontroller code for the sensors, and data logging system  
 - Cost breakdown and list of material providers  
 - Documentation on my research into air pollution  
 - A log documenting the full building process  

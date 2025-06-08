@@ -8,11 +8,7 @@ __A personal research document on air pollution, its effects, measurement, and m
 3. [Sources of air pollution](#sources-of-air-pollution)
 4. [Health & environmental effects](#health-and-environmental-effects)
 5. [Measurment techniques & sensor technologies](#measurment-techniques-and-sensor-technologies)
-6. [Air Quality Index (AQI) standards](#air-quality-index-standards)
-7. [Filtration & purification methods](#filtration-and-purification-methods)
-8. [Open-source environmental methods](#existing-open-source-environmental-methods)
-9. [Policy & global migitation efforts](#policy-and-global-migitation-efforts)
-10. [Bibliography](#bibliography)
+6. [Bibliography](#bibliography)
 
 ## An Overview of Air Pollution
 
@@ -27,7 +23,7 @@ WHO data also shows that almost (99%) of the global population is breathing air 
 
 The air quality is also very closely linked to earth's ever-warming climate, due to many of the drivers of air pollution, for example the combustion of fossil fuels, are also huge sources of greenhouse gas emissions.
 
-AirNet will be focusing on the indoor aspect of air pollution and the health of people. It will be presenting ideas and prototypes to reduce the pollutants in our air and will also have a critical focus on the financial aspect of filtering the air so that executing the idea in low- and middle-income countries will be even more attractive to their governments.
+AirNet will be focusing **more** on the indoor aspect of air pollution and the health of people. It will be presenting ideas and prototypes to detect the pollutants in our air and will also have a critical focus on the financial aspect of detecting air pollution so that executing the idea in low- and middle-income countries will be even more attractive to their governments.
 
 ## Types of Pollutants
 
@@ -77,17 +73,48 @@ You can find out more about CO [here](https://www.epa.gov/indoor-air-quality-iaq
 
 ## Sources of Air Pollution
 
+### Main Sources of:
+
+- PM2.5 are combustion engines, industrial emissions, residential heating, agricultural burning, and secondary formation.
+- PM10 are construction sites, unpaved roads, tire wear, agricultural activities, pollen and mold spores, and wind-blown dust.
+- VOCs are vehicle exhaust, solvants, industrial processes, household producs, gasoline storage and distribution, and natural sources (e.g. vegitation -- isoprene and terpenes).
+- NO2 are traffic emissions, power plants, industrial combustion, and gas stoves and heaters (indoors).
+- O3 (ground-level -- not emitted directly - forms through photochemical reactions) are NOx + VOCs + sunlight --> O3, vehicle emissions, industrial facilities, gasoline vapors, and natural VOC emissions under hot, sunny conditions.
+- CO are motor vehicles, residentail heating (gas/wood), industrial processes, cigarette smoke (especially indoors) and wildfires.
+
 ## Health and environmental effects
+
+### Main Health Effects of:
+
+- PM2.5 are increased risk of heart attacks, strokes, asthma, lung cancer, and respiratory infections.
+- PM10 are aggravation of asthma, bronchitis, and other lung conditions; can cause eye and throat irritation and reduce lung function.
+- VOCs are when exposed for long enough: damage to liver, kidneys, and the CNS; some VOCs can cause cancer (carcinogenic).
+- NO2 are lung irritation and reduced lung fucntion (especially in asthmatic children), increased risk of repiratory infection, can worsen cardiopulmonary diseases.
+- O3 are chest pain, coughing, shortness of breath, lung inflammation, aggavation of asthma, prolonged exposure: permanent lung damage.
+- CO are reduction of oxygen delivery to organs, fatigue, confusion, dizziness, chest pain, particularly dangerous for infants, pregnant women and people with heart disease.
+
+### Main Environmental Effects of:
+
+- PM2.5 are haze, deposits on surfaces, soil and water, altering nutrient balance; can damage crops and forests.
+- PM10 are contribution to soil and water pollution, reduced crop yields, urban dust and grime.
+- VOCs are precursors to ground-level ozone, contributes to the creation of some PM2.5s (secondary organic aerosols), can affect plant growth and forest health.
+- NO2 are contribution to ozone and acid rain, eutrophication of water bodies, damages leafy plants.
+- O3 are plant tissue damage, photosynthesis impairment, climate change contribution.
+- CO indirect contribution to ground-level ozone formation, impact on urban air quality.
 
 ## Measurment techniques and sensor technologies
 
-## Air Quality Index standards
+### How is PM measured?
+
+Based on a blog on clarity.io, a company focused on air pollution monitoring, the instruments which most commonly are used for measuring PM do so either by measuring the **concentration** of particulate matter or the particle size distibution. The most accurate way to measure PM is using a "gravimeteric" method by drawing air into a filter where particles can colletct. This method also alows for a chemical analysis for research purpouses. 
+
+Particulate matter can also be measured using optical instruments by looking at different properties of light (e.g. light scattering, absorption, and extinction) and how light reatcs with the presence of PM. The most popular is a so-called "OPC" -- short for optical particle counter -- which rapidly measures the amount of particles in a room (usually a cleanroom) by shining a light source, like a laser diode to illuminate the particles in front of a photodetector to measure the light scattered as a result of these particles.
+
+To see my plan on how I will measure PM click [here](building-plan.md)
+
+### How are VOCs measured?
 
 ## Filtration and Purification Methods
-
-## Existing Open-source Enviromental Methods
-
-## Policy and Global Migitation Efforts
 
 ## Biblography
 
@@ -100,3 +127,4 @@ in chronological order:
 - [California air resources board on nitrogen dioxide](https://ww2.arb.ca.gov/resources/nitrogen-dioxide-and-health)
 - [EPA on ground-level ozone pollution](https://www.epa.gov/ground-level-ozone-pollution)
 - [EPA on carbon monoxide's impact on indoor air quality](https://www.epa.gov/indoor-air-quality-iaq/carbon-monoxides-impact-indoor-air-quality)
+- [clarity.io on how PM is measured](https://www.clarity.io/blog/air-quality-measurements-series-particulate-matter)
