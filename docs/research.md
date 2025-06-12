@@ -114,7 +114,30 @@ To see my plan on how I will measure PM click [here](building-plan.md)
 
 ### How are VOCs measured?
 
-## Filtration and Purification Methods
+I found 3 main methods of measuring Volatile Organic Compounds:
+
+- Photoionozation detector (PID)
+- Flame ionization detector (FID)
+- Metal oxide semi-conductor gas sensors (MOS)
+
+I will explain what each of these devices do, but if you would like to learn about these sensors you can refer to these sources: [PID](https://www.gdscorp.com/blog/gas-detectors/measuring-voc-how-photoionization-detectors-work/), [FID](https://www.peakscientific.com/discover/news/how-does-an-fid-work/), [MOS](https://pmc.ncbi.nlm.nih.gov/articles/PMC3247717/) 
+
+### Photoionization detector (PID)
+
+PIDs can analyze a wide rang of chemicals, includign aromatic hydrocarbons, but they cannot analyze low molecular weight hydrocarbons. They work by using UV light to break down the airborn VOCs into either positive or negative ions. Once broken down, the device can measure or detect the change of the ionized gas. It is important to note that PID only temporarily breaks the VOCs sample down and detects them, but it does **not** permanently change them. An example of a dangerous VOC which PID can detect very well is methylene chloride.
+
+### Flame ionization detector (FID)
+
+FID is one of the most widely used detectors due to its low detection limits. In principle it works as solutes are swept through the component known as an "FID jet" as they elute at the end of the column. At the tip of this jet, the solutes pass through a flame made of a hydrogen/air mixture, which have to be provided via high-pressure tanks. As these organic solutes burn, they create ions which are then collected at electrodes called "collector plates". This creates a current in the detector's circuitry and this current eventually becomes the signal.
+
+### Metal oxide semi-conductor gas sensors (MOS)
+
+MOS sensors detect the presence of the harmful (or just targeted) gas by recording the changes in its (electrical) resistance of the sensing material. MOS sensors can be categorized into 2 types:
+
+- n-type
+- p-type
+
+These 2 types differ in their construction and functionality. The further references will be in relation to the n-type sensor. The concept is that Oxygen particles in the atmosphere naturally stick to the surface of the MOS sensor, but reducing gases will seize O2 from the surface of the sensor, which in result releases electronsand **decreases** the electrical resistance within the sensor's ciruitry. This change is proportional to the concentration of the target gas and is measured by the sensor's electrodes.
 
 ## Biblography
 
@@ -128,3 +151,9 @@ in chronological order:
 - [EPA on ground-level ozone pollution](https://www.epa.gov/ground-level-ozone-pollution)
 - [EPA on carbon monoxide's impact on indoor air quality](https://www.epa.gov/indoor-air-quality-iaq/carbon-monoxides-impact-indoor-air-quality)
 - [clarity.io on how PM is measured](https://www.clarity.io/blog/air-quality-measurements-series-particulate-matter)
+- [Adrien Lafond on how vocs are measured - foobot.io](https://foobot.io/guides/how-to-measure-volatile-organic-compounds-in-air.php)
+- [GDScorp on how photoionization detectors work (and on VOCs)](https://www.gdscorp.com/blog/gas-detectors/measuring-voc-how-photoionization-detectors-work/)
+- [PEAK scientific on how flame ionization detectors work](https://www.peakscientific.com/discover/news/how-does-an-fid-work/)
+- [Extra information used for how an FID works](https://www.sciencedirect.com/topics/agricultural-and-biological-sciences/flame-ionization-detector)
+- [Information and introduction to MOS sensors](https://sensorsandtransmitters.com/a-brief-introduction-to-mos-sensors-and-their-applications/)
+- [Metal oxide semi-conductor gas sensors in environmental monitoring - NIH](https://pmc.ncbi.nlm.nih.gov/articles/PMC3247717/)
