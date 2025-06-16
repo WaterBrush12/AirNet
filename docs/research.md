@@ -139,6 +139,28 @@ MOS sensors detect the presence of the harmful (or just targeted) gas by recordi
 
 These 2 types differ in their construction and functionality. The further references will be in relation to the n-type sensor. The concept is that Oxygen particles in the atmosphere naturally stick to the surface of the MOS sensor, but reducing gases will seize O2 from the surface of the sensor, which in result releases electronsand **decreases** the electrical resistance within the sensor's ciruitry. This change is proportional to the concentration of the target gas and is measured by the sensor's electrodes.
 
+To see my plan on how I will measure VOCs click [here](building-plan.md)
+
+### How is NO2 measured?
+
+based on [clarity.io](https://www.clarity.io/blog/air-quality-measurements-series-nitrogen-dioxide), the primary method of measuring nitrogen dioxide is something called a "chemiliminescence continous analyzer". During this process, air is drawn in and nitrogen **monoxide** is made to react with ozone. This produces NO2 in a chemical reaction that also releases light. A computer can then be used to calculate the difference between the air born levels of nitrogen monoxide and other nitrogen oxides to find the level of nitrogen dioxide in the air.
+
+To see my plan on how I will measure NO2 click [here](building-plan.md)
+
+### How is O3 measured?
+
+A common tool used for measuring the amount of ozone in a room is a device called an "ozone analyzer". Something very good about this tool is that it measures the concentration of ozone in real-time. It uses a very interesting concept: due to ozone blocking light at wavelengths of approximately 254 nanometers -- the wave length of ultraviolet light -- the instrument can measure the intensity of light that passes through the air to determine the concentration of ozone present.
+
+To see my plan on how I will measure O3 click [here](building-plan.md)
+
+### How is CO measured?
+
+One of the most common ways of detecting CO is with an instrument called the "electrochemical sensor". These devices operate by oxidizing carbon monoxide at an electrode, which in result generates an electric current proportional to the concentration of the gas. This sensor has high sensitivity and accuracy, low power consumption tare and a long lifespan all of which make this, one of the best methods to measure CO in the air.
+
+It is also interesting to note that metal oxide semi-conductor sensors can also be used to measure the amount of CO in the air, although it is not as widely used as the electrochemical sensor.
+
+To see my plan on how I will measure CO click [here](building-plan.md)
+
 ## Biblography
 
 in chronological order:
@@ -157,3 +179,6 @@ in chronological order:
 - [Extra information used for how an FID works](https://www.sciencedirect.com/topics/agricultural-and-biological-sciences/flame-ionization-detector)
 - [Information and introduction to MOS sensors](https://sensorsandtransmitters.com/a-brief-introduction-to-mos-sensors-and-their-applications/)
 - [Metal oxide semi-conductor gas sensors in environmental monitoring - NIH](https://pmc.ncbi.nlm.nih.gov/articles/PMC3247717/)
+- [Clarity.io on how NO2 is formed and measured](https://www.clarity.io/blog/air-quality-measurements-series-nitrogen-dioxide)
+- [Clarity.io on how ground level O3 is formed and measured](https://www.clarity.io/blog/air-quality-measurements-series-ozone)
+- [Cambridge sensotec on how carbon monoxide can be measured](https://cambridge-sensotec.co.uk/blog/how-to-measure-carbon-monoxide/)
