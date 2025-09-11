@@ -35,13 +35,13 @@ Click [here](research.md#airnet-research-paper) to see my research on air pollut
 
 Planning and research phase.
 
-## To-Do 
+## To-Do
 
 - [x] **Flask/FastAPI Backend**
   - Create a backend using FastAPI.
   - Add a single endpoint: `POST /air` that accepts JSON requests.
   - For initial development, simply log every received request to the terminal.
-  - Example request body:
+  - **Example request body:**
     ```json
     {
       "uniqueid": "esp32_01",
@@ -55,16 +55,22 @@ Planning and research phase.
   - Hardcode Wi-Fi credentials and backend server URL for development.
   - Every 4 seconds, send a JSON payload to the `/air` endpoint.
   - Initially, use fake sensor data until real sensors are integrated.
-  - Make sure the JSON matches the backend’s expected format.
+  - Ensure the JSON matches the backend’s expected format.
 
-- [X] **Web Dashboard & Persistent Storage**
-  - Once the backend reliably receives requests, implement a barebones/simple web dashboard (no authentication needed) to display:
-    - A list of currently online ESP32 devices.
-    - An ESP is considered offline if it hasn’t sent data in the last 10 seconds.
-  - Use SQLite for any persistent storage (e.g., logging historic data).
+- [x] **Real-time Dashboard & Device Monitoring**
+  - Implement a barebones web dashboard (no authentication needed) to display:
+    - List of currently online ESP32 devices.
+    - Air quality data from each ESP32 device.
+  - Mark an ESP32 as offline if it hasn’t sent data in the last 10 seconds.
   - Dashboard should automatically update device statuses in near real-time.
+  - Use SQLite for basic persistent storage (e.g., logging latest data).
 
-
-
-
-
+- [ ] **Historical Data, Trends & Mapping**
+  - Store all incoming air quality data in SQLite for historical analysis.
+  - Create dashboard views to show past air quality readings over time.
+  - Allow assigning a location to each ESP32 device.
+  - Display ESP32 devices on a map with their air quality data.
+  - Add charts/graphs for visualizing historical air quality trends.
+  - Show trends and averages for different pollutants over time.
+  - Highlight alerts or unusual changes in air quality (spikes/drops).
+  - Optionally, allow filtering data by device, location, or time range.
