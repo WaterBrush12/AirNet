@@ -1,7 +1,34 @@
-## To-Do:
- - [ ] hardcode wifi and server info into esp for development
- - [ ] esp should constantly send (fake-) info about air quality -> should do a json http request to the api backend -> has to mention its unique id so we can diferentiate between multiple sensors 
- - [ ] user-friendly way to connect esp32 to wifi network; scan qr code? 
+## To-Do
+
+- [ ] **Flask/FastAPI Backend**
+  - Create a backend using FastAPI (or Flask if preferred).
+  - Add a single endpoint: `POST /air` that accepts JSON requests.
+  - For initial development, simply log every received request to the terminal.
+  - Example request body:
+    ```json
+    {
+      "uniqueid": "esp32_01",
+      "particulateMatter": { "pm2_5": 12.3, "pm10": 25.6 },
+      "volatileOrganicCompounds": 123,
+      "gases": { "CO": 0.4, "NO2": 0.02, "O3": 0.03 }
+    }
+    ```
+
+- [ ] **ESP32 Firmware**
+  - Hardcode Wi-Fi credentials and backend server URL for development.
+  - Every 4 seconds, send a JSON payload to the `/air` endpoint.
+  - Initially, use fake sensor data until real sensors are integrated.
+  - Make sure the JSON matches the backend’s expected format.
+
+- [ ] **Web Dashboard & Persistent Storage**
+  - Once the backend reliably receives requests, implement a simple web dashboard (no authentication needed) to display:
+    - A list of currently online ESP32 devices.
+    - An ESP is considered offline if it hasn’t sent data in the last 10 seconds.
+  - Use SQLite for any persistent storage (e.g., logging historic data).
+  - Dashboard should automatically update device statuses in near real-time.
+
+
+
 
 
 # AirNet
