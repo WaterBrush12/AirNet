@@ -1,7 +1,7 @@
 ## To-Do
 
 - [ ] **Flask/FastAPI Backend**
-  - Create a backend using FastAPI (or Flask if preferred).
+  - Create a backend using FastAPI.
   - Add a single endpoint: `POST /air` that accepts JSON requests.
   - For initial development, simply log every received request to the terminal.
   - Example request body:
