@@ -57,8 +57,8 @@ Planning and research phase.
   - Initially, use fake sensor data until real sensors are integrated.
   - Make sure the JSON matches the backend’s expected format.
 
-- [ ] **Web Dashboard & Persistent Storage**
-  - Once the backend reliably receives requests, implement a simple web dashboard (no authentication needed) to display:
+- [X] **Web Dashboard & Persistent Storage**
+  - Once the backend reliably receives requests, implement a barebones/simple web dashboard (no authentication needed) to display:
     - A list of currently online ESP32 devices.
     - An ESP is considered offline if it hasn’t sent data in the last 10 seconds.
   - Use SQLite for any persistent storage (e.g., logging historic data).
