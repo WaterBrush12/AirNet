@@ -1,8 +1,7 @@
 ## To-Do:
- - [x] List item
- - [ ] List item
- - [ ] List item
- - [ ] List item
+ - [ ] hardcode wifi and server info into esp for development
+ - [ ] esp should constantly send (fake-) info about air quality -> should do a json http request to the api backend -> has to mention its unique id so we can diferentiate between multiple sensors 
+ - [ ] user-friendly way to connect esp32 to wifi network; scan qr code? 
 
 
 # AirNet
