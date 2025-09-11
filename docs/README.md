@@ -1,4 +1,4 @@
-## To-Do
+## To-Do 
 
 - [ ] **Flask/FastAPI Backend**
   - Create a backend using FastAPI.
@@ -26,7 +26,6 @@
     - An ESP is considered offline if it hasn’t sent data in the last 10 seconds.
   - Use SQLite for any persistent storage (e.g., logging historic data).
   - Dashboard should automatically update device statuses in near real-time.
-
 
 
 
