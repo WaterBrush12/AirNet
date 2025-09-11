@@ -37,7 +37,7 @@ Planning and research phase.
 
 ## To-Do 
 
-- [ ] **Flask/FastAPI Backend**
+- [x] **Flask/FastAPI Backend**
   - Create a backend using FastAPI.
   - Add a single endpoint: `POST /air` that accepts JSON requests.
   - For initial development, simply log every received request to the terminal.
@@ -51,7 +51,7 @@ Planning and research phase.
     }
     ```
 
-- [ ] **ESP32 Firmware**
+- [x] **ESP32 Firmware**
   - Hardcode Wi-Fi credentials and backend server URL for development.
   - Every 4 seconds, send a JSON payload to the `/air` endpoint.
   - Initially, use fake sensor data until real sensors are integrated.
