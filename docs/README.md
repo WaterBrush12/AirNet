@@ -64,6 +64,8 @@ Planning and research phase.
   - Mark an ESP32 as offline if it hasn’t sent data in the last 10 seconds.
   - Dashboard should automatically update device statuses in near real-time.
   - Use SQLite for basic persistent storage (e.g., logging latest data).
+    
+- [ ] **Better looking map https://openmaptiles.org/**
 
 - [ ] **Graphs with detailed live and historic Data**
 
