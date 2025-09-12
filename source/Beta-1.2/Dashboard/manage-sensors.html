@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AirNet Dashboard - Manage Sensors</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+</head>
+<body>
+
+    <!-- Sidebar (same as dashboard) -->
+    <aside id="sidebar">
+        <div id="logo">
+            <img src="assets/logo.png" alt="AirNet Logo">
+        </div>
+
+        <!-- Main Menu -->
+        <nav id="main-menu">
+            <a href="index.html" class="menu-item">Pollution Map</a>
+            <span class="menu-item active">Manage Sensors</span>
+            <a href="/data" class="menu-item">Data</a>
+            <a href="/notifications" class="menu-item">Notifications</a>
+        </nav>
+
+        <!-- User Section -->
+        <div id="user-section">
+            <a href="/settings" class="menu-item">Settings</a>
+            <a href="#" class="menu-item" onclick="console.log('Logout functionality will be implemented here.')">Logout</a>
+            <div id="user-info">
+                <img src="assets/user-placeholder.png" alt="User Profile">
+                <div class="user-details">
+                    <p class="user-name">Winston Smith</p>
+                    <p class="user-email">winstonsmith@airnet.at</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <div class="sm-container max-w-5xl mx-auto bg-white rounded-2xl shadow-lg p-8 sm:p-10">
+            <header class="mb-10 text-center">
+                <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-800 mb-2">Sensor Management</h1>
+            </header>
+
+            <div id="sm-sensor-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+        </div>
+
+        <!-- Modals -->
+        <div id="sm-rename-modal" class="sm-modal">
+            <div class="sm-modal-content">
+                <span class="sm-close-button" onclick="sm_closeRenameModal()">&times;</span>
+                <h2 class="text-2xl font-semibold mb-4 text-gray-800">Rename Sensor</h2>
+                <input type="text" id="sm-new-sensor-name-input" class="w-full p-3 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter new sensor name">
+                <div class="flex justify-end space-x-2">
+                    <button onclick="sm_closeRenameModal()" class="px-5 py-2 text-sm font-medium rounded-md bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors">Cancel</button>
+                    <button onclick="sm_saveRename()" class="px-5 py-2 text-sm font-medium rounded-md bg-blue-600 text-white hover:bg-blue-700 transition-colors">Save</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="sm-delete-modal" class="sm-modal">
+            <div class="sm-modal-content">
+                <span class="sm-close-button" onclick="sm_closeDeleteModal()">&times;</span>
+                <h2 class="text-2xl font-semibold mb-4 text-gray-800">Delete Sensor</h2>
+                <p class="text-gray-700 mb-6">Are you sure you want to delete <span id="sm-sensor-name-to-delete" class="font-bold"></span>?</p>
+                <div class="flex justify-end space-x-2">
+                    <button onclick="sm_closeDeleteModal()" class="px-5 py-2 text-sm font-medium rounded-md bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors">Cancel</button>
+                    <button onclick="sm_confirmDelete()" class="px-5 py-2 text-sm font-medium rounded-md bg-red-600 text-white hover:bg-red-700 transition-colors">Delete</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="sm-location-modal" class="sm-modal">
+            <div class="sm-modal-content">
+                <span class="sm-close-button" onclick="sm_closeLocationModal()">&times;</span>
+                <h2 class="text-2xl font-semibold mb-4 text-gray-800">Set Sensor Location</h2>
+                <input type="text" id="sm-new-location-input" class="w-full p-3 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter sensor location (e.g., '1st Floor, Room 101')">
+                <div class="flex justify-end space-x-2">
+                    <button onclick="sm_closeLocationModal()" class="px-5 py-2 text-sm font-medium rounded-md bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors">Cancel</button>
+                    <button onclick="sm_saveLocation()" class="px-5 py-2 text-sm font-medium rounded-md bg-blue-600 text-white hover:bg-blue-700 transition-colors">Save</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Tailwind (if not already included globally) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Sensor Management JS -->
+    <script src="js/manage-sensors.js"></script>
+</body>
+</html>
+
