@@ -1,6 +1,6 @@
 # AirNet
 
-![Description](https://cdn.discordapp.com/attachments/1307693031486521367/1416185637136236607/IMG_7100.png)
+![IMG-7100](https://i.ibb.co/pr4ynkjL/IMG-7100.jpg)
 
 Trying to solve air pollution problems with minimum resources.
 
