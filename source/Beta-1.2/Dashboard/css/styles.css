@@ -1,0 +1,157 @@
+/* Reset and base styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    display: flex;
+    background-color: #f1f1f1;
+    overflow: hidden;
+}
+
+/* Sidebar */
+#sidebar {
+    width: 250px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 1px solid #ddd;
+    border-radius: 0 20px 20px 0;
+    padding: 20px;
+}
+
+/* Logo Section */
+#logo {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+#logo img {
+    width: auto;
+    height: 100px;
+    display: block;
+    margin: 20px auto 0;
+}
+
+/* Menu */
+#main-menu {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.menu-item {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    border-radius: 10px;
+    transition: background 0.2s;
+}
+
+.menu-item:hover {
+    background-color: #eee;
+}
+
+/* Active menu item */
+.menu-item.active {
+    background-color: #ddd;
+    font-weight: bold;
+    cursor: default;
+}
+
+/* User Section */
+#user-section {
+    margin-top: 20px;
+}
+
+#user-info {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+
+#user-info img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.user-details {
+    margin-left: 10px;
+}
+
+.user-name {
+    font-weight: bold;
+}
+
+.user-email {
+    font-size: 0.85em;
+    color: #777;
+}
+
+/* Main Content */
+#main-content {
+    flex-grow: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+#map-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* Leaflet map container must have height */
+#map {
+    width: 100%;
+    height: 100%;
+}
+
+.earth-marker {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;  /* remove white background if you like */
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.border-green {
+    border-color: #10B981;
+}
+
+.border-yellow {
+    border-color: #D4A017; /* nice dark-ish yellow */
+}
+
+.border-red {
+    border-color: #EF4444;
+}
+
+.earth-marker img {
+    width: 100%;
+    height: 100%;
+}
+
+/* Hover / touch effect */
+.earth-marker:hover {
+    transform: scale(1.1);           /* slightly bigger */
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);  /* subtle glow */
+    z-index: 1000;                   /* ensure marker is on top */
+}

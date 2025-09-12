@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AirNet Dashboard</title>
+    <!-- External CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside id="sidebar">
+        <!-- Logo Section -->
+        <div id="logo">
+            <img src="assets/logo.png" alt="AirNet Logo">
+        </div>
+
+        <!-- Main Menu -->
+        <nav id="main-menu">
+            <span class="menu-item active">Pollution Map</span>
+            <a href="/manage-sensors" class="menu-item">Manage Sensors</a>
+            <a href="/data" class="menu-item">Data</a>
+            <a href="/notifications" class="menu-item">Notifications</a>
+        </nav>
+
+        <!-- User/Settings Section -->
+        <div id="user-section">
+            <a href="/settings" class="menu-item">Settings</a>
+            <a href="#" class="menu-item" onclick="console.log('Logout functionality will be implemented here.')">Logout</a>
+
+            <div id="user-info">
+                <img src="assets/user-placeholder.png" alt="User Profile">
+                <div class="user-details">
+                    <p class="user-name">Winston Smith</p>
+                    <p class="user-email">winstonsmith@airnet.at</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content (Map) -->
+    <main id="main-content">
+        <div id="map-container">
+            <div id="map"></div>
+        </div>
+    </main>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <!-- External JS -->
+    <script src="js/script.js"></script>
+</body>
+</html>
+
