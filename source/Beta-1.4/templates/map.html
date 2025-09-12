@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AirNet Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <style>
+        @import url('https://rsms.me/inter/inter.css');
+        :root { font-family: 'Inter', sans-serif; }
+        @supports (font-variation-settings: normal) {
+            :root { font-family: 'Inter var', sans-serif; }
+        }
+        
+        body {
+            display: flex;
+            background-color: #f3f4f6;
+            overflow: hidden;
+            height: 100vh;
+        }
+        
+        #sidebar {
+            width: 250px;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-right: 1px solid #ddd;
+            padding: 20px;
+        }
+        #logo {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        #logo img {
+            width: auto;
+            height: 100px;
+            display: block;
+            margin: 20px auto 0;
+        }
+        #main-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        #main-menu li {
+            margin-bottom: 10px;
+        }
+        #main-menu a {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #6b7280;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        #main-menu a i {
+            margin-right: 12px;
+            font-size: 20px;
+        }
+        #main-menu a.active {
+            background-color: #d1ebfa;
+            color: #00c2ff;
+        }
+        #map {
+            flex-grow: 1;
+            height: 100vh;
+        }
+        .leaflet-marker-icon {
+            filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.4));
+        }
+        .leaflet-popup-content-wrapper {
+            border-radius: 8px;
+        }
+        .user-profile {
+            display: flex;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+            margin-top: 20px;
+        }
+        .user-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 12px;
+        }
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .user-profile .name {
+            font-weight: 600;
+            color: #1f2937;
+        }
+        .user-profile .email {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+    </style>
+</head>
+<body>
+    <aside id="sidebar">
+        <div>
+            <div id="logo">
+                <img src="/assets/logo.png" alt="AirNet Logo">
+            </div>
+            <nav id="main-menu">
+                <ul>
+                    <li>
+                        <a href="/map" class="active">
+                            <i class="fa-solid fa-earth-europe"></i>
+                            Pollution Map
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/sensors">
+                            <i class="fa-solid fa-list-check"></i>
+                            Manage Sensors
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/data">
+                            <i class="fa-solid fa-chart-line"></i>
+                            Data
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/notifications">
+                            <i class="fa-solid fa-bell"></i>
+                            Notifications
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div>
+            <nav id="main-menu">
+                <ul>
+                    <li>
+                        <a href="/settings">
+                            <i class="fa-solid fa-gear"></i>
+                            Settings
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/logout">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                            Logout
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="user-profile">
+                <img src="https://avatar.iran.liara.run/public/boy" alt="User Profile">
+                <div class="user-info">
+                    <span class="name">Winston Smith</span>
+                    <span class="email">winstonsmith@airnet.at</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+    <div id="map"></div>
+    <div id="message-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <h3 class="text-xl font-bold mb-2">Message</h3>
+            <p id="modal-message" class="mb-4"></p>
+            <div class="text-right">
+                <button onclick="document.getElementById('message-modal').style.display='none';" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const API_BASE_URL = window.location.origin;
+        const map = L.map('map').setView([48.2082, 16.3738], 10); // Default view to Vienna
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        const markers = {};
+        const queryParams = new URLSearchParams(window.location.search);
+        const deviceToLocate = queryParams.get('device_id');
+        let tempMarker = null;
+        function showMessage(message) {
+            document.getElementById('modal-message').textContent = message;
+            document.getElementById('message-modal').style.display = 'block';
+        }
+        function getAirQualityIcon(airQualityStatus, isOnline) {
+            if (!isOnline) {
+                return 'assets/sad-earth.png';
+            }
+            if (airQualityStatus === 'good') {
+                return 'assets/happy-earth.png';
+            } else if (airQualityStatus === 'mid') {
+                return 'assets/neutral-earth.png';
+            } else {
+                return 'assets/sad-earth.png';
+            }
+        }
+        async function fetchAndDisplayMarkers() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/devices/latest`);
+                const devices = await response.json();
+                const currentMarkers = new Set(Object.keys(markers));
+                devices.forEach(device => {
+                    const uniqueid = device.uniqueid;
+                    const lat = device.latitude;
+                    const lng = device.longitude;
+                    const isOnline = device.is_online;
+                    const airQualityStatus = device.airQualityStatus;
+                    const pm2_5 = device.pm2_5;
+                    const pm10 = device.pm10;
+                    const voc = device.volatileOrganicCompounds;
+                    const co = device.CO;
+                    const no2 = device.NO2;
+                    const o3 = device.O3;
+
+                    // Remove existing marker if device is offline
+                    if (!isOnline && markers[uniqueid]) {
+                        map.removeLayer(markers[uniqueid]);
+                        delete markers[uniqueid];
+                        currentMarkers.delete(uniqueid);
+                        return;
+                    }
+                    
+                    if (lat && lng && isOnline) {
+                        const iconUrl = getAirQualityIcon(airQualityStatus, isOnline);
+                        const icon = L.icon({
+                            iconUrl: iconUrl,
+                            iconSize: [48, 48],
+                            iconAnchor: [24, 48]
+                        });
+                        const popupContent = `
+                            <h4 class="text-md font-semibold">${device.name || 'Unnamed Sensor'}</h4>
+                            <p class="text-xs text-gray-500">ID: ${uniqueid}</p>
+                            <p class="text-xs text-gray-500">PM2.5: ${pm2_5 !== null ? pm2_5.toFixed(2) : 'N/A'}</p>
+                            <p class="text-xs text-gray-500">PM10: ${pm10 !== null ? pm10.toFixed(2) : 'N/A'}</p>
+                            <p class="text-xs text-gray-500">VOC: ${voc !== null ? voc.toFixed(2) : 'N/A'}</p>
+                            <p class="text-xs text-gray-500">CO: ${co !== null ? co.toFixed(2) : 'N/A'}</p>
+                            <p class="text-xs text-gray-500">NO2: ${no2 !== null ? no2.toFixed(2) : 'N/A'}</p>
+                            <p class="text-xs text-gray-500">O3: ${o3 !== null ? o3.toFixed(2) : 'N/A'}</p>
+                        `;
+                        if (markers[uniqueid]) {
+                            // Update existing marker
+                            markers[uniqueid].setLatLng([lat, lng]);
+                            markers[uniqueid].setIcon(icon);
+                            markers[uniqueid].setPopupContent(popupContent);
+                        } else {
+                            // Create new marker
+                            const marker = L.marker([lat, lng], { icon: icon }).addTo(map).bindPopup(popupContent);
+                            markers[uniqueid] = marker;
+                        }
+                    } else if (markers[uniqueid]) {
+                        // This handles the case where lat/lng is removed or not set
+                        map.removeLayer(markers[uniqueid]);
+                        delete markers[uniqueid];
+                        currentMarkers.delete(uniqueid);
+                    }
+                });
+            } catch (error) {
+                console.error("Failed to fetch device data:", error);
+            }
+        }
+        // Handle the location setting mode
+        function enterLocationSettingMode(uniqueid) {
+            map.getContainer().style.cursor = 'crosshair';
+            showMessage(`Click on the map to set the location for sensor: ${uniqueid}`);
+            if (tempMarker) {
+                map.removeLayer(tempMarker);
+            }
+            map.on('click', async function(e) {
+                const { lat, lng } = e.latlng;
+                if (tempMarker) {
+                    map.removeLayer(tempMarker);
+                }
+                const tempIcon = L.icon({
+                    iconUrl: 'assets/neutral-earth.png',
+                    iconSize: [48, 48],
+                    iconAnchor: [24, 48]
+                });
+                tempMarker = L.marker([lat, lng], { icon: tempIcon }).addTo(map);
+                const confirmed = confirm(`Set sensor location to Lat: ${lat.toFixed(4)}, Lng: ${lng.toFixed(4)}?`);
+                if (confirmed) {
+                    try {
+                        const response = await fetch(`${API_BASE_URL}/devices/${uniqueid}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ latitude: lat, longitude: lng })
+                        });
+                        if (response.ok) {
+                            showMessage("Sensor location updated successfully!");
+                            map.off('click');
+                            map.getContainer().style.cursor = '';
+                            if (tempMarker) {
+                                map.removeLayer(tempMarker);
+                                tempMarker = null;
+                            }
+                            fetchAndDisplayMarkers(); // Refresh markers to show the new location
+                        } else {
+                            const error = await response.json();
+                            showMessage(`Failed to update sensor location: ${error.detail}`);
+                            map.getContainer().style.cursor = '';
+                        }
+                    } catch (error) {
+                        showMessage("An error occurred while updating the sensor location.");
+                        console.error("Update location error:", error);
+                        map.getContainer().style.cursor = '';
+                    }
+                } else {
+                    if (tempMarker) {
+                        map.removeLayer(tempMarker);
+                        tempMarker = null;
+                    }
+                }
+            });
+        }
+        // Initial setup
+        document.addEventListener('DOMContentLoaded', () => {
+            if (deviceToLocate) {
+                enterLocationSettingMode(deviceToLocate);
+            } else {
+                fetchAndDisplayMarkers();
+                setInterval(fetchAndDisplayMarkers, 5000);
+            }
+        });
+        // Redirect map.html back to itself without the query param to exit location setting mode
+        window.onpopstate = function() {
+            if (!queryParams.get('device_id')) {
+                window.location.reload();
+            }
+        };
+    </script>
+</body>
+</html>

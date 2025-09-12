@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AirNet Sensors</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        @import url('https://rsms.me/inter/inter.css');
+        :root { font-family: 'Inter', sans-serif; }
+        @supports (font-variation-settings: normal) {
+            :root { font-family: 'Inter var', sans-serif; }
+        }
+        
+        body {
+            display: flex;
+            background-color: #f3f4f6;
+            overflow: hidden;
+            height: 100vh;
+        }
+        
+        #sidebar {
+            width: 250px;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-right: 1px solid #ddd;
+            padding: 20px;
+        }
+        #logo {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        #logo img {
+            width: auto;
+            height: 100px;
+            display: block;
+            margin: 20px auto 0;
+        }
+        #main-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        #main-menu li {
+            margin-bottom: 10px;
+        }
+        #main-menu a {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #6b7280;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        #main-menu a i {
+            margin-right: 12px;
+            font-size: 20px;
+        }
+        #main-menu a.active {
+            background-color: #d1ebfa;
+            color: #00c2ff;
+        }
+        #main-content {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .sensor-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            height: 90%;
+            max-height: 600px;
+            display: flex;
+            flex-direction: column;
+        }
+        #modal-map {
+            flex-grow: 1;
+            width: 100%;
+            border-radius: 8px;
+        }
+        .user-profile {
+            display: flex;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+            margin-top: 20px;
+        }
+        .user-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 12px;
+        }
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .user-profile .name {
+            font-weight: 600;
+            color: #1f2937;
+        }
+        .user-profile .email {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+    </style>
+</head>
+<body>
+    <aside id="sidebar">
+        <div>
+            <div id="logo">
+                <img src="/assets/logo.png" alt="AirNet Logo">
+            </div>
+            <nav id="main-menu">
+                <ul>
+                    <li>
+                        <a href="/map">
+                            <i class="fa-solid fa-earth-europe"></i>
+                            Pollution Map
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/sensors" class="active">
+                            <i class="fa-solid fa-list-check"></i>
+                            Manage Sensors
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/data">
+                            <i class="fa-solid fa-chart-line"></i>
+                            Data
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/notifications">
+                            <i class="fa-solid fa-bell"></i>
+                            Notifications
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div>
+            <nav id="main-menu">
+                <ul>
+                    <li>
+                        <a href="/settings">
+                            <i class="fa-solid fa-gear"></i>
+                            Settings
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/logout">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                            Logout
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="user-profile">
+                <img src="https://avatar.iran.liara.run/public/boy" alt="User Profile"> 
+                <div class="user-info">
+                    <span class="name">Winston Smith</span>
+                    <span class="email">winstonsmith@airnet.at</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+    <div id="main-content">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Sensors</h1>
+        <div id="sensor-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            </div>
+    </div>
+    <div id="location-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3 id="modal-title" class="text-xl font-bold mb-4">Set Sensor Location</h3>
+            <div id="modal-map"></div>
+            <div class="flex justify-end mt-4 space-x-2">
+                <button onclick="closeModal()" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="message-modal" class="modal hidden">
+        <div class="relative p-5 border w-96 shadow-lg rounded-md bg-white">
+            <h3 class="text-xl font-bold mb-2">Message</h3>
+            <p id="modal-message" class="mb-4"></p>
+            <div class="text-right">
+                <button onclick="document.getElementById('message-modal').classList.add('hidden');" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const API_BASE_URL = window.location.origin;
+        let mapInstance = null;
+        let mapMarker = null;
+        function showMessage(message) {
+            document.getElementById('modal-message').textContent = message;
+            document.getElementById('message-modal').classList.remove('hidden');
+        }
+        function openLocationModal(uniqueid) {
+            document.getElementById('location-modal').classList.remove('hidden');
+            document.getElementById('modal-title').textContent = `Set location for ${uniqueid}`;
+            if (!mapInstance) {
+                mapInstance = L.map('modal-map').setView([48.2082, 16.3738], 10);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                }).addTo(mapInstance);
+                mapInstance.on('click', async function(e) {
+                    const { lat, lng } = e.latlng;
+                    if (mapMarker) {
+                        mapInstance.removeLayer(mapMarker);
+                    }
+                    mapMarker = L.marker([lat, lng]).addTo(mapInstance);
+                    if (confirm(`Set sensor location to Lat: ${lat.toFixed(4)}, Lng: ${lng.toFixed(4)}?`)) {
+                        try {
+                            const response = await fetch(`${API_BASE_URL}/devices/${uniqueid}`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ latitude: lat, longitude: lng })
+                            });
+                            if (response.ok) {
+                                showMessage("Sensor location updated successfully!");
+                                closeModal();
+                                updateSensorList();
+                            } else {
+                                const error = await response.json();
+                                showMessage(`Failed to update location: ${error.detail}`);
+                            }
+                        } catch (error) {
+                            showMessage("An error occurred while updating the sensor location.");
+                            console.error("Update location error:", error);
+                        }
+                    }
+                });
+            } else {
+                mapInstance.invalidateSize();
+            }
+        }
+        function closeModal() {
+            document.getElementById('location-modal').classList.add('hidden');
+            if (mapMarker) {
+                mapInstance.removeLayer(mapMarker);
+                mapMarker = null;
+            }
+        }
+        async function updateSensorList() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/devices/latest`);
+                const devices = await response.json();
+                const sensorList = document.getElementById('sensor-list');
+                const existingCardIds = Array.from(sensorList.children).map(card => card.dataset.uniqueid);
+                devices.forEach(device => {
+                    const uniqueid = device.uniqueid;
+                    const name = device.name || 'Unnamed Sensor';
+                    const isOnline = device.is_online;
+                    const lastSeenRelative = device.last_seen_relative;
+                    
+                    let card = document.querySelector(`[data-uniqueid="${uniqueid}"]`);
+                    if (card) {
+                        // Update existing card's content
+                        card.classList.remove('border-green-400', 'border-red-400');
+                        card.classList.add(isOnline ? 'border-green-400' : 'border-red-400');
+                        card.querySelector('.sensor-name').textContent = name;
+                        card.querySelector('.online-status').textContent = isOnline ? 'Online' : 'Offline';
+                        card.querySelector('.online-status').classList.remove('bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800');
+                        card.querySelector('.online-status').classList.add(isOnline ? 'bg-green-100' : 'bg-red-100', isOnline ? 'text-green-800' : 'text-red-800');
+                        card.querySelector('.last-seen').textContent = lastSeenRelative;
+                        card.querySelector('.location-text').textContent = (device.latitude && device.longitude) ? `Lat: ${device.latitude.toFixed(4)}, Lng: ${device.longitude.toFixed(4)}` : 'Not set';
+                    } else {
+                        // Create a new card
+                        card = document.createElement('div');
+                        card.dataset.uniqueid = uniqueid;
+                        card.className = `sensor-card flex flex-col justify-between border-l-4 ${isOnline ? 'border-green-400' : 'border-red-400'}`;
+                        card.innerHTML = `
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-xl font-semibold sensor-name">${name}</h3>
+                                <div class="px-3 py-1 text-sm font-medium rounded-full online-status ${isOnline ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+                                    ${isOnline ? 'Online' : 'Offline'}
+                                </div>
+                            </div>
+                            <div class="text-gray-500 text-sm mb-4">
+                                <p><strong>ID:</strong> <span class="text-gray-800 break-words">${uniqueid}</span></p>
+                                <p><strong>Last seen:</strong> <span class="text-gray-800 last-seen">${lastSeenRelative}</span></p>
+                                <p><strong>Location:</strong> <span class="text-gray-800 location-text">${(device.latitude && device.longitude) ? `Lat: ${device.latitude.toFixed(4)}, Lng: ${device.longitude.toFixed(4)}` : 'Not set'}</span></p>
+                            </div>
+                            <div class="flex justify-end space-x-2 mt-auto">
+                                <button onclick="handleRenameSensor('${uniqueid}')" class="px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded-lg shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                                    Rename
+                                </button>
+                                <button onclick="openLocationModal('${uniqueid}')" class="px-4 py-2 bg-yellow-500 text-white text-sm font-semibold rounded-lg shadow-sm hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50">
+                                    Set Location
+                                </button>
+                                <button onclick="handleDeleteSensor('${uniqueid}')" class="px-4 py-2 bg-red-500 text-white text-sm font-semibold rounded-lg shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
+                                    Delete
+                                </button>
+                            </div>
+                        `;
+                        sensorList.appendChild(card);
+                    }
+                });
+                // Remove cards for devices that no longer exist
+                existingCardIds.forEach(id => {
+                    if (!devices.some(device => device.uniqueid === id)) {
+                        const cardToRemove = document.querySelector(`[data-uniqueid="${id}"]`);
+                        if (cardToRemove) {
+                            cardToRemove.remove();
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error("Failed to fetch sensor data:", error);
+                const sensorList = document.getElementById('sensor-list');
+                sensorList.innerHTML = '<div class="col-span-3 text-center text-red-500">Failed to load sensor data. Please check the backend connection.</div>';
+            }
+        }
+        async function handleDeleteSensor(uniqueid) {
+            if (!confirm(`Are you sure you want to delete sensor ${uniqueid}? This action cannot be undone.`)) {
+                return;
+            }
+            try {
+                const response = await fetch(`${API_BASE_URL}/devices/${uniqueid}`, {
+                    method: 'DELETE'
+                });
+                if (response.ok) {
+                    showMessage('Sensor deleted successfully!');
+                    updateSensorList(); // Refresh the list
+                } else {
+                    const error = await response.json();
+                    showMessage(`Failed to delete sensor: ${error.detail}`);
+                }
+            } catch (error) {
+                showMessage("An error occurred while deleting the sensor.");
+                console.error("Delete sensor error:", error);
+            }
+        }
+        async function handleRenameSensor(uniqueid) {
+            const newName = prompt("Enter a new name for the sensor:");
+            if (!newName || newName.trim() === "") {
+                return;
+            }
+            try {
+                const response = await fetch(`${API_BASE_URL}/devices/${uniqueid}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name: newName })
+                });
+                if (response.ok) {
+                    showMessage('Sensor renamed successfully!');
+                    updateSensorList(); // Refresh the list
+                } else {
+                    const error = await response.json();
+                    showMessage(`Failed to rename sensor: ${error.detail}`);
+                }
+            } catch (error) {
+                showMessage("An error occurred while renaming the sensor.");
+                console.error("Rename sensor error:", error);
+            }
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            updateSensorList(); // Initial data fetch
+            setInterval(updateSensorList, 5000); // Fetch data every 5 seconds
+        });
+    </script>
+</body>
+</html>
