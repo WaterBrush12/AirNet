@@ -65,12 +65,9 @@ Planning and research phase.
   - Dashboard should automatically update device statuses in near real-time.
   - Use SQLite for basic persistent storage (e.g., logging latest data).
 
-- [ ] **Historical Data, Trends & Mapping**
-  - Store all incoming air quality data in SQLite for historical analysis.
-  - Create dashboard views to show past air quality readings over time.
-  - Allow assigning a location to each ESP32 device.
-  - Display ESP32 devices on a map with their air quality data.
-  - Add charts/graphs for visualizing historical air quality trends.
-  - Show trends and averages for different pollutants over time.
-  - Highlight alerts or unusual changes in air quality (spikes/drops).
-  - Optionally, allow filtering data by device, location, or time range.
+- [ ] **Graphs with detailed live and historic Data**
+
+- [ ] **Add Authentication?**
+
+- [ ] **Improve Project structure?**
+
