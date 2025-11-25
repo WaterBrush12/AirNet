@@ -68,8 +68,6 @@ Planning and research phase.
   - Use SQLite for basic persistent storage (e.g., logging latest data).
 
 - [ ] **Server should send requests to sensor when information is needed instead of sensor spamming json payloads at the backend even when not needed atm**
-    
-- [ ] **Better looking map https://openmaptiles.org/**
 
 - [ ] **Graphs with detailed live and historic Data**
 
