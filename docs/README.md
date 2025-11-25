@@ -71,7 +71,5 @@ Planning and research phase.
 
 - [ ] **Graphs with detailed live and historic Data**
 
-- [ ] **Add Authentication?**
-
 - [ ] **Improve Project structure?**
 
