@@ -67,11 +67,9 @@ Planning and research phase.
   - Dashboard should automatically update device statuses in near real-time.
   - Use SQLite for basic persistent storage (e.g., logging latest data).
      
-- [] **Add "dummySensor.py" that acts like the esp32 sensor will in the future for more efficient debugging**
-
-- [ ] **Server should send requests to sensor when information is needed instead of sensor spamming json payloads at the backend even when not needed atm**
+- [ ] **Improve Project structure**
 
 - [ ] **Graphs with detailed live and historic Data**
 
-- [ ] **Improve Project structure?**
+
 
