@@ -66,6 +66,8 @@ Planning and research phase.
   - Mark an ESP32 as offline if it hasn’t sent data in the last 10 seconds.
   - Dashboard should automatically update device statuses in near real-time.
   - Use SQLite for basic persistent storage (e.g., logging latest data).
+     
+- [] **Add "dummySensor.py" that acts like the esp32 sensor will in the future for more efficient debugging**
 
 - [ ] **Server should send requests to sensor when information is needed instead of sensor spamming json payloads at the backend even when not needed atm**
 
